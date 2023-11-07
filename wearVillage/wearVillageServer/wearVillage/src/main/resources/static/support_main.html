@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/default}">
+
+<body>
+  <div layout:fragment="content">
+    <link layout:fragment="css" rel="stylesheet" href="css/support_main.css">
+    <!-- 왼쪽 공백 -->
+    <div class="supportMain_l_gap"></div>
+    <!-- 메인 -->
+    <div class="supportMain_container">
+      <div class="supportMain_main">
+       <div class="support_img"><a href="홈페이지메인"><img src="/img/img_wearVillageLogo.png" alt=""></a>
+        <h3>WearVillage</h3></div>
+       
+    <div class="supportMain_top">
+      무엇을 도와드릴까요?
+  </div>
+    <div class="supportMain_btn">
+      <div class="supportMain_btn_name"><a href="/FAQlist"><button class="supportMain_ask_btn"><img class="askimg" src="/img/FAQ_img.png" alt=""></button></a>자주 묻는 질문(FAQ)</div>
+      <div class="supportMain_btn_name"><a href="/asklist"><button class="supportMain_ask_btn"><img class="askimg" src="/img/asklist_img.png" alt=""></button></a>1:1 문의 목록</div> 
+      <div class="supportMain_btn_name"><a href="/askpost"><button class="supportMain_ask_btn"><img class="askimg" src="/img/askpost.png" alt=""></button></a>1:1 문의 하기</div>
+    </div>
+    <div class="supportMain_line"></div>
+    <div class="supportMain_bottom">
+      <div class="supportMain_idfind">
+        <p class="supportMain_title">옷빌리지 계정 관리</p>
+    <br>
+    <a class="supportMain_id" href="">아이디 찾기 ></a>
+    <a class="supportMain_pw" href="">비밀번호 찾기 ></a><br><br>
+    <a class="supportMain_pw" href="">비밀번호 재설정 ></a>
+  </div>
+  <div class="supportMain_refund">
+    <p class="supportMain_title">결제 관리</p>
+    <br>
+    <a href="">내 지갑 ></a>
+    <a href="">충전하기 ></a><br><br>
+    <a href="">환불 방법 ></a>
+  </div>
+</div>
+</div> 
+</div>
+    <!-- 오른쪽 공백 -->
+    <div class="supportMain_l_gap"></div>
+    <script layout:fragment="script" rel="text/javascript" src="스크립트 경로를 쓰세요"></script>
+
+  </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  /* outline: 1px solid red; */
+}
+
+.FAQ_container .FAQ_title a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  height: 40px;
+}
+
+.FAQ_container {
+  display: grid;
+  grid-template-areas: "FAQ_l_gap FAQ_main FAQ_r_gap";
+  grid-template-columns: 1fr 768px 1fr;
+}
+
+.FAQ_top_line {
+  outline: 1px solid black;
+  margin-top: 20px;
+}
+
+.FAQ_l_gap {
+  grid-area: FAQ_l_gap;
+}
+
+.FAQ_r_gap {
+  grid-area: FAQ_r_gap;
+}
+
+.FAQ_main {
+  grid-area: FAQ_main;
+}
+
+.FAQ_top {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+.FAQ_mid_line{
+  outline: 1px solid lightgray;
+}
+.FAQ{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+}
