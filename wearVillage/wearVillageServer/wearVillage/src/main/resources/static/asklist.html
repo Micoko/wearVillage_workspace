@@ -24,7 +24,9 @@
               <!-- 1번문의 -->
               <div class="asklist_itme asklist_list1" th:each="askObject : ${askObjectList}">
                 <div class="asklist_num asklist_list1"><p th:text="${askObject.askpostid}">1</p></div>
-                <div class="asklist_title asklist_list1"><a href=""><p th:text="${askObject.title}">거래자가 제 옷을 들고 잠적했어요</p></a></div>
+                <div class="asklist_title asklist_list1"><a href="" th:href="@{/askdetail/{askpostid}(askpostid=${askObject.askpostid})}">
+                  <p th:text="${askObject.title}">예제 데이터 제목</p></a>
+                </div>
                 <div class="asklist_situation asklist_list1">
                   <p th:if="${askObject.answerbody}">답변완료</p>
                   <p th:unless="${askObject.answerbody}">처리중</p>
