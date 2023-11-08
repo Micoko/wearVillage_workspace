@@ -7,7 +7,7 @@ import java.util.List;
 public interface AskPostDAO {
 
     // 게시글 쓰기
-    Long askWrite(AskObject askObject);
+    String askWrite(AskObject askObject);
     //-- 게시글이 오면 성공 여부만 반환
 
     // 전체 게시글 조회
@@ -23,7 +23,7 @@ public interface AskPostDAO {
     //-- 유저ID가 오면 List<AskObject>를 반환
 
     // 삭제 : int 반환값이 1이면 성공 , 반환값이 0이면 실패
-    boolean askDelete(String askpostid);
+    boolean askDelete(String askpostid, String id);
     //-- 게시글ID가 오면 성공여부를 반환
 
     // 수정 : 수정이 성공했는가 실패했는가?

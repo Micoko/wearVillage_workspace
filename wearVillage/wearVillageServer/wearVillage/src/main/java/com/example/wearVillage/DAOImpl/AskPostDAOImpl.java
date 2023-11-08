@@ -60,16 +60,19 @@ public class AskPostDAOImpl implements AskPostDAO {
 
   // 삭제  (  INPUT : ASKPOSTID  /   OUTPUT : boolean  )
   @Override
-  public boolean askDelete(String askpostid) {
+  public boolean askDelete(String askpostid, String id) {
     StringBuffer sql = new StringBuffer();
     sql.append("  DELETE FROM ASKPOST    ");
     sql.append("  WHERE ASKPOSTID = :ASKPOSTID   ");
+    sql.append("   AND ID = :ID       ");
 
-    MapSqlParameterSource param = new MapSqlParameterSource("ASKPOSTID", askpostid);
+    MapSqlParameterSource param = new MapSqlParameterSource();
+    param.addValue("ASKPOSTID", askpostid);
+    param.addValue("ID", id);
 
     try {
-      int deletedRows = template.update(sql.toString(), param);
-      return deletedRows != 0;
+      int updatedRows = template.update(sql.toString(), param);
+      return updatedRows != 0;
     } catch (DataAccessException e) {
       throw new RuntimeException(e);
     }
@@ -91,7 +94,7 @@ public class AskPostDAOImpl implements AskPostDAO {
   }
   // 쓰기   ---------   웹에서 보낼 데이터 : userID, title, body, gubun, email
   @Override
-  public Long askWrite(AskObject askObject) {
+  public String askWrite(AskObject askObject) {
     StringBuffer sql = new StringBuffer();
     sql.append(" INSERT INTO ASKPOST (ASKPOSTID, ID, TITLE, BODY, GUBUN, EMAIL, TIMELOG) ");
     sql.append(" VALUES (ASKPOST_PK_SEQ.NEXTVAL, :ID, :TITLE, :BODY, :GUBUN, :EMAIL, CURRENT_TIMESTAMP) ");
@@ -105,8 +108,8 @@ public class AskPostDAOImpl implements AskPostDAO {
 
     KeyHolder keyHolder = new GeneratedKeyHolder();
     try {
-      int updatedRows = template.update(sql.toString(), param, keyHolder, new String[]{"askpostid"});
-      long key = keyHolder.getKey().longValue();
+      template.update(sql.toString(), param, keyHolder, new String[]{"ASKPOSTID"});
+      String key = keyHolder.getKey().toString();
       return key;
     } catch (DataAccessException e) {
       throw new RuntimeException(e);

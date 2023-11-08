@@ -3,9 +3,11 @@
   layout:decorate="~{layouts/default}">
 
 
+
 <body>
   <div layout:fragment="content">
     <link layout:fragment="css" rel="stylesheet" href="/css/askdetail.css">
+    <link layout:fragment="css" rel="stylesheet" href="/css/wearVillageBtn.css">
     <!-- 왼쪽 공백 -->
     <div class="askdetail_l_gap"></div>
     <!-- 메인 -->
@@ -21,12 +23,23 @@
           <div class="answer askdetail_line" th:unless="${askObject.answerbody}">-- 등록된 답변이 없습니다 --</div>
           <div class="answer askdetail_line" th:if="${askObject.answerbody}" th:text="${askObject.answerbody}">고객센터의 답변 들어오는 부분</div>
         </div>
+        <div class="askdetail_menu">
+          <button class="askdetail_top wearVillageBtn askdetail_listBtn" id="askDelBtn" onclick="letDelBtn();">삭제</button>
+          <script th:inline="javascript">
+              function letDelBtn(){
+                if(!confirm("해당 게시글을 삭제하시겠습니까?")){e.preventDefault();}
+                let $aid = /*[[${askObject.askpostid}]]*/ 'default';
+                  globalThis.location.href=`/askdelete/${$aid}`;
+              }
+          </script>
+          <button class="askdetail_top wearVillageBtn askdetail_listBtn"
+                  onclick="window.location.href='/asklist';">문의 목록</button>
+        </div>
       </div>
     </div>
   </div>
   <!-- 오른쪽 공백 -->
   <div class="askdetail_r_gap"></div>
-
   <script layout:fragment="script" rel="text/javascript"></script>
 
   </div>

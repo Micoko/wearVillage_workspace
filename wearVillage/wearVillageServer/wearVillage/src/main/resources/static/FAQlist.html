@@ -25,7 +25,9 @@
           <!-- 1번문의 시작 -->
           <div class="FAQlist_itme FAQlist_item1" th:each="FAQlistObject : ${FAQlist}">
             <div class="FAQlist_num FAQlist_item1"><p th:text="${FAQlistObject.faqpostid}">1</p></div>
-            <div class="FAQlist_title FAQlist_item1"><a href=""><p th:text="${FAQlistObject.title}">상대방이 제 옷을 안돌려줘요</p></a></div>
+            <div class="FAQlist_title FAQlist_item1"><a href="" th:href="@{/FAQ/{faqpostid}(faqpostid=${FAQlistObject.faqpostid})}">
+              <p th:text="${FAQlistObject.title}">예제 데이터 제목</p></a>
+            </div>
           </div>
           <div class="FAQlist_line"></div>
           <!-- 1번문의 끝 -->

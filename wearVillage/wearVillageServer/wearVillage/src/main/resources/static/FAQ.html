@@ -5,6 +5,7 @@
 <body>
   <div layout:fragment="content">
     <link layout:fragment="css" rel="stylesheet" href="/css/FAQ.css">
+    <link layout:fragment="css" rel="stylesheet" href="/css/wearVillageBtn.css">
     <!-- 왼쪽 공백 -->
     <div class="asklist_l_gap"></div>
     <!-- 메인 faqObject -->
@@ -17,6 +18,10 @@
           <div class="FAQ_question">질문</div>
           <div class="FAQ_mid_line"></div>
           <div class="FAQ_answer" th:text="${faqObject.body}">답변</div>
+        </div>
+        <div class="askdetail_menu">
+          <button class="askdetail_top wearVillageBtn askdetail_listBtn"
+                  onclick="window.location.href='/FAQlist';">문의 목록</button>
         </div>
       </div>
     </div>
