@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Slf4j
@@ -23,7 +24,7 @@ public class AskPostDAOImpl implements AskPostDAO {
   private final NamedParameterJdbcTemplate template;
 
 
-  // 개별조회   (  INPUT : 게시글 ID  /  OUTPUT  :  개별게시글  )
+  // 개별조회  ( Optinal.of() )
   @Override
   public AskObject askFind(String askpostid) {
     StringBuffer sql = new StringBuffer();
@@ -31,13 +32,14 @@ public class AskPostDAOImpl implements AskPostDAO {
     sql.append(" FROM ASKPOST  ");
     sql.append(" WHERE ASKPOSTID = :ASKPOSTID ");
     AskRowMapper askRowMapper = new AskRowMapper();
-
     MapSqlParameterSource param = new MapSqlParameterSource("ASKPOSTID", askpostid);
+    AskObject askObject = template.queryForObject(sql.toString(), param, askRowMapper);
 
-    try {
-      return template.queryForObject(sql.toString(), param, askRowMapper);
-    } catch (DataAccessException e) {
-      throw new RuntimeException(e);
+    Optional<AskObject> optionalAskObject = Optional.of(askObject);
+    if(optionalAskObject.isPresent()){
+      return optionalAskObject.get();
+    } else {
+      return optionalAskObject.get();
     }
   }
 
@@ -74,7 +76,7 @@ public class AskPostDAOImpl implements AskPostDAO {
       int updatedRows = template.update(sql.toString(), param);
       return updatedRows != 0;
     } catch (DataAccessException e) {
-      throw new RuntimeException(e);
+      return false;
     }
   }
 
@@ -92,6 +94,7 @@ public class AskPostDAOImpl implements AskPostDAO {
       throw new RuntimeException(e);
     }
   }
+
   // 쓰기   ---------   웹에서 보낼 데이터 : userID, title, body, gubun, email
   @Override
   public String askWrite(AskObject askObject) {
@@ -109,26 +112,30 @@ public class AskPostDAOImpl implements AskPostDAO {
     KeyHolder keyHolder = new GeneratedKeyHolder();
     try {
       template.update(sql.toString(), param, keyHolder, new String[]{"ASKPOSTID"});
-      String key = keyHolder.getKey().toString();
-      return key;
+      return keyHolder.getKey().toString();
     } catch (DataAccessException e) {
-      throw new RuntimeException(e);
+      return "error";
     }
   }
 
   // 전체목록
   @Override
-  public List<AskObject> askFindAll() {
+  public List<AskObject> askFindAll(String sid) {
     StringBuffer sql = new StringBuffer();
     sql.append(" SELECT ASKPOSTID,ID,TITLE,BODY,TIMELOG,ANSWERBODY,GUBUN,EMAIL ");
-    sql.append(" FROM ASKPOST  ");
+    sql.append(" FROM ASKPOST ");
+    sql.append(" WHERE ID = :sid ");
+    sql.append(" ORDER BY ASKPOSTID DESC ");
 
     AskRowMapper askRowMapper = new AskRowMapper();
+    Map<String, String> param = Map.of("sid", sid);
 
-    try {
-      return template.query(sql.toString(), askRowMapper);
-    } catch (DataAccessException e) {
-      throw new RuntimeException(e);
+    List<AskObject> result = template.query(sql.toString(), param, askRowMapper);
+    Optional<List<AskObject>> optionalResult = Optional.of(result);
+    if (optionalResult.isPresent()) {
+      return optionalResult.get();
+    } else {
+      return optionalResult.get();
     }
   }
 }

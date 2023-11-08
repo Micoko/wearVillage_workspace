@@ -11,7 +11,7 @@ public interface AskPostDAO {
     //-- 게시글이 오면 성공 여부만 반환
 
     // 전체 게시글 조회
-    List<AskObject> askFindAll();
+    List<AskObject> askFindAll(String sid);
     //-- INPUT 없이 요청 들어오면 전체 게시글 반환
     
     // 개별 게시글 조회
