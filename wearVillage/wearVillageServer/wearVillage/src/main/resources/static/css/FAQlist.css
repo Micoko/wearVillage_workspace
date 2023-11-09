@@ -41,6 +41,7 @@
 
 .FAQlist_all_list {
   /* outline: 3px solid rgb(204, 204, 204); */
+  height: 600px;
 }
 
 .FAQlist_itme {

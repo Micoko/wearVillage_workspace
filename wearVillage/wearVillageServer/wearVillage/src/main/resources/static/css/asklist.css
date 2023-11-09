@@ -38,6 +38,7 @@
 }
 .asklist_all_list{
   /* outline: 3px solid rgba(252, 126, 126, 0.8); */
+  height: 800px;
 }
 .asklist_itme{
   display: flex;
@@ -110,7 +111,7 @@ border: none;
 .asklist_askbtn{
   display: flex;
   justify-content: end;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .asklist_askbtn button{
   width: 100px;height: 50px;

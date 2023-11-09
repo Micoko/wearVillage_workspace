@@ -41,6 +41,9 @@
   margin-bottom: 20px;
 
 }
+.askdetail_top_line {
+  outline: 1px solid rgba(252, 126, 126, 0.8);
+}
 .askdetail_mid_line{
   outline: 1px solid rgba(252, 126, 126, 0.8);
 }
@@ -70,7 +73,10 @@
   text-decoration: underline;
 }
 .askdetail_listBtn{
-  width: 80px;
-  height: 40px;
-  margin-right: 10px;
+  width: 100px;
+  height: 50px;
+}
+.blank1 {
+    width: 20px;
+    height: 20px;
 }

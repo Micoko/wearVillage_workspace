@@ -5,6 +5,7 @@ import com.example.wearVillage.Entity.AskObject;
 import com.example.wearVillage.Entity.FaqObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -20,6 +21,7 @@ public class FaqPostDAOImpl implements FaqPostDAO {
 
   private final NamedParameterJdbcTemplate template;
 
+
   // 목록 (다중 행)
   @Override
   public List<FaqObject> faqFindAll() {
@@ -27,8 +29,12 @@ public class FaqPostDAOImpl implements FaqPostDAO {
     sql.append(" select faqpostid, title, body ");
     sql.append(" from faqpost ");
 
-    FaqRowMapper faqRowMapper = new FaqRowMapper();
-    return template.query(sql.toString(), faqRowMapper);
+    try {
+      FaqRowMapper faqRowMapper = new FaqRowMapper();
+      return template.query(sql.toString(), faqRowMapper);
+    } catch (DataAccessException e) {
+      return "/errorpage";
+    }
   }
 
   // 개별조회 (단일 행) -- FAQPOSTID 인풋

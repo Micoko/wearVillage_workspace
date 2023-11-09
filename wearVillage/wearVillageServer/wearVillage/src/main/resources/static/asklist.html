@@ -11,8 +11,8 @@
     <div class="asklist_l_gap"></div>
     <!-- 메인 -->
     <div class="asklist_container">
-        <div class="asklist_main">
-            <h2 class="asklist_top"  style="font-size: 25px;font-weight: bold;">000님의 1:1 문의 목록</h2>
+        <div class="asklist_main" >
+            <h2 class="asklist_top" style="font-size: 25px;font-weight: bold;"><span th:text="${askObjectList[0].id}">XXX</span>님의 문의 목록</h2>
             <div class="asklist_top_line"></div>
             <br>
             <div class="asklist_all_list">
@@ -22,23 +22,25 @@
                 <div class="asklist_main_situation asklist_list0">상태</div>
               </div>
               <!-- 1번문의 -->
-              <div class="asklist_itme asklist_list1" th:each="askObject : ${askObjectList}">
+                <div th:each="askObject : ${askObjectList}">
 
-                <div class="asklist_num asklist_list1"><p th:text="${askObject.askpostid}">1</p></div>
-                <div class="asklist_title asklist_list1">
-                  <a th:href="@{/askdetail/{askpostid}(askpostid=${askObject.askpostid})}" th:text="${askObject.title}">
-                  예제 데이터 제목
-                  </a>
-                </div>
-                <div class="asklist_situation asklist_list1">
-                  <p th:if="${askObject.answerbody}">답변완료</p>
-                  <p th:unless="${askObject.answerbody}">처리중</p>
+                      <div class="asklist_itme asklist_list1">
+                        <div class="asklist_num asklist_list1"><p th:text="${askObject.askpostid}">1</p></div>
+                        <div class="asklist_title asklist_list1">
+                          <a th:href="@{/askdetail/{askpostid}(askpostid=${askObject.askpostid})}" th:text="${askObject.title}">
+                          예제 데이터 제목
+                          </a>
+                        </div>
+                        <div class="asklist_situation asklist_list1">
+                          <p th:if="${askObject.answerbody}">답변완료</p>
+                          <p th:unless="${askObject.answerbody}">처리중</p>
+                        </div>
+                      </div>
+                      <div class="asklist_line"></div><!-- 라인 -->
+                      <!-- 1번문의 끝 -->
+
                 </div>
 
-              </div>
-              <div class="asklist_line"></div><!-- 라인 -->
-              <!-- 1번문의 끝 -->
-                </div>
                 <div class="asklist_askbtn"><a href="/askpost"><button class="wearVillageBtn">문의하기</button></a></div>
               </div>
             </div>
