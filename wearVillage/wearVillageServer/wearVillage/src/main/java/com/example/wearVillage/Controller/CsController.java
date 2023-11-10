@@ -52,8 +52,9 @@ public class CsController {
         }
     }
 
-    @GetMapping("/asklist")    // GET http://localhost:8090/asklist
-    public String asklist(HttpSession session, Model model){
+    @GetMapping("/asklist/{currentPage}")
+    public String asklist(@PathVariable(required = false) Long currentPage, HttpSession session, Model model){
+        Long defaultPage = (currentPage != null) ? currentPage : 1L;
         if(session.getAttribute("id")==null){
             log.info("세션 없음");
             return "/login";
@@ -61,7 +62,21 @@ public class CsController {
             String sid = (String) session.getAttribute("id");
             log.info("sid={}",sid);
             List<AskObject> askObjectList = askPostDAO.askFindAll(sid);
-            model.addAttribute("askObjectList", askObjectList);
+            // 총 게시물 수
+            int totalAskObjects = askObjectList.size();
+            // 페이지당 게시물 수
+            int pageSize = 10; // 예시로 페이지당 10개의 게시물을 보여줄 것이라 가정합니다.
+            // 전체 페이지 수 계산
+            int totalPages = (int) Math.ceil((double) totalAskObjects / pageSize);
+            // 현재 페이지에 해당하는 게시물 리스트
+            int startIndex = (int) ((defaultPage - 1) * pageSize);
+            int endIndex = Math.min(startIndex + pageSize, totalAskObjects);
+            List<AskObject> currentPageAskObjects = askObjectList.subList(startIndex, endIndex);
+
+            model.addAttribute("askObjectList", currentPageAskObjects);
+            model.addAttribute("pageSize", pageSize);
+            model.addAttribute("totalPages", totalPages);
+            model.addAttribute("currentPage", defaultPage);
             return "asklist";
         }
     }
@@ -125,18 +140,19 @@ public class CsController {
         }
     }
 
-    //삭제
+    //삭제          http://localhost:8090/askdelete/85       삭제로직을 보내는 주소
     @GetMapping("/askdelete/{askpostid}")
-    public String askDelete(@PathVariable("askpostid") String askpostid, HttpSession session) {
-        if(session.getAttribute("id")==null){
+    public String askDelete(@PathVariable("askpostid") String askpostid,
+                            HttpSession session) {
+        if (session.getAttribute("id") == null) {
             log.info("세션 없음");
             return "/login";
         } else {
             String id = (String) session.getAttribute("id");
             log.info("sid={}", id);
             boolean b_result = askPostDAO.askDelete(askpostid, id);
-            if(b_result) {
-                return "redirect:/asklist";
+            if (b_result) {
+                return "redirect:/asklist/1";
             } else {
                 return "redirect:/errorpage";
             }

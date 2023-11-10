@@ -3,6 +3,7 @@ package com.example.wearVillage.DAOImpl;
 import com.example.wearVillage.DAO.FaqPostDAO;
 import com.example.wearVillage.Entity.AskObject;
 import com.example.wearVillage.Entity.FaqObject;
+import com.example.wearVillage.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -29,12 +30,10 @@ public class FaqPostDAOImpl implements FaqPostDAO {
     sql.append(" select faqpostid, title, body ");
     sql.append(" from faqpost ");
 
-    try {
-      FaqRowMapper faqRowMapper = new FaqRowMapper();
-      return template.query(sql.toString(), faqRowMapper);
-    } catch (DataAccessException e) {
-      return "/errorpage";
-    }
+    FaqRowMapper faqRowMapper = new FaqRowMapper();
+    List<FaqObject> list = template.query(sql.toString(), faqRowMapper);
+    if(list.size() == 0) throw new CustomException("조회결과 없음");
+    return list;
   }
 
   // 개별조회 (단일 행) -- FAQPOSTID 인풋

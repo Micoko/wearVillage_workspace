@@ -12,7 +12,7 @@
     <!-- 메인 -->
     <div class="asklist_container">
         <div class="asklist_main" >
-            <h2 class="asklist_top" style="font-size: 25px;font-weight: bold;"><span th:text="${askObjectList[0].id}">XXX</span>님의 문의 목록</h2>
+            <h2 class="asklist_top" style="font-size: 25px;font-weight: bold;"><span th:text="${session?.id}">XXX</span>님의 문의 목록</h2>
             <div class="asklist_top_line"></div>
             <br>
             <div class="asklist_all_list">
@@ -37,8 +37,21 @@
                         </div>
                       </div>
                       <div class="asklist_line"></div><!-- 라인 -->
+                </div>
                       <!-- 1번문의 끝 -->
+                <div>
+                    <!-- 이전 페이지 링크 -->
+<!--                    <a th:if="${currentPage > 1}" th:href="@{/asklist/{currentPage}(currentPage=${currentPage - 1})}">이전</a>-->
 
+                    <!-- 페이지 번호 표시 -->
+                    <span th:each="pageNum : ${#numbers.sequence(1, totalPages)}" style="display: flex; justify-content: center;">
+                        <div style="width: 30px; height: 30px; background-color: #EC5C5C; margin: 20px; text-align: center;">
+                            <a style="line-height: 30px; color: white; text-decoration: none; display: inline-block;" th:href="@{/asklist/{currentPage}(currentPage=${pageNum})}" th:text="${pageNum}" th:class="${pageNum == currentPage} ? 'current'"></a>
+                        </div>
+                    </span>
+
+                    <!-- 다음 페이지 링크 -->
+<!--                    <a th:if="${currentPage < totalPages}" th:href="@{/asklist/{currentPage}(currentPage=${currentPage + 1})}">다음</a>-->
                 </div>
 
                 <div class="asklist_askbtn"><a href="/askpost"><button class="wearVillageBtn">문의하기</button></a></div>
